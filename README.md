@@ -1,2 +1,3 @@
-# chen-discord-bot
-A Go Discord bot for PokéAPI
+# Chen Discord-bot
+
+>A Go Discord bot for PokéAPI
