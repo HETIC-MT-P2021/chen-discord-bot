@@ -7,6 +7,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/HETIC-MT-P2021/chen-discord-bot/discord"
+
 	"github.com/bwmarrin/discordgo"
 )
 
@@ -31,7 +33,7 @@ func main() {
 	}
 
 	// Register the messageCreate func as a callback for MessageCreate events.
-	dg.AddHandler(messageCreate)
+	dg.AddHandler(discord.CommandsHandler)
 
 	// In this example, we only care about receiving message events.
 	dg.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsGuildMessages)
@@ -57,14 +59,47 @@ func main() {
 // message is created on any channel that the authenticated bot has access to.
 func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 
+	fmt.Println(m.Content)
+	fmt.Println(m.Mentions)
+	fmt.Println(m.Author, m.Author.ID)
+
 	// Ignore all messages created by the bot itself
 	// This isn't required in this specific example but it's a good practice.
 	if m.Author.ID == s.State.User.ID {
 		return
 	}
 	// If the message is "ping" reply with "Pong!"
-	if m.Content == "ping" {
-		s.ChannelMessageSend(m.ChannelID, "Pong!")
+	if m.Content == "!pokedex bulbasaur" {
+		msg := &discordgo.MessageEmbed{
+			Author: &discordgo.MessageEmbedAuthor{
+				Name:    "Pokédex",
+				IconURL: "https://icon-library.com/images/pokedex-icon/pokedex-icon-20.jpg",
+			},
+			Thumbnail: &discordgo.MessageEmbedThumbnail{
+				URL: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
+			},
+			URL:         "https://www.pokemon.com/us/pokedex/bulbasaur",
+			Title:       "Bulbasaur #1",
+			Color:       15158332,
+			Description: "A strange seed was planted on its back at birth. The plant sprouts and grows with this Pokémon.",
+			Fields: []*discordgo.MessageEmbedField{
+				{
+					Name:   "Type",
+					Value:  "grass, poison",
+					Inline: true,
+				},
+				{
+					Name:   "Height",
+					Value:  "7",
+					Inline: false,
+				},
+				{
+					Name:  "Weight",
+					Value: "69",
+				},
+			},
+		}
+		s.ChannelMessageSendEmbed(m.ChannelID, msg)
 	}
 
 	// If the message is "pong" reply with "Ping!"
