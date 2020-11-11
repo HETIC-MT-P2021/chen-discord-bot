@@ -1,24 +1,17 @@
-package discord
+package command
 
 import (
-	"github.com/HETIC-MT-P2021/chen-discord-bot/api"
-	"github.com/bwmarrin/discordgo"
+	"github.com/HETIC-MT-P2021/chen-discord-bot/discord"
 	"math"
 	"strconv"
 	"strings"
+	"time"
+
+	"github.com/HETIC-MT-P2021/chen-discord-bot/pokeapi"
+	"github.com/bwmarrin/discordgo"
 )
 
-// Generic message format for errors
-func errorMessage(title string, message string) string {
-	return "❌  **" + title + "**\n" + message
-}
-
-// Generic message format for successful operations
-func successMessage(title string, message string) string {
-	return "✅  **" + title + "**\n" + message
-}
-
-func formatStats(p api.Pokemon) (titleStats string, scaleStats string) {
+func formatStats(p pokeapi.Pokemon) (titleStats string, scaleStats string) {
 	var title []string
 	var stats []string
 	for _, s := range p.Stats() {
@@ -32,9 +25,10 @@ func formatStats(p api.Pokemon) (titleStats string, scaleStats string) {
 	return strings.Join(title, "\n"), strings.Join(stats, "\n")
 }
 
-func cardEmbed(p api.Pokemon) *discordgo.MessageEmbed {
+func cardEmbed(p pokeapi.Pokemon) *discordgo.MessageEmbed {
 	titleStats, scaleStats := formatStats(p)
 	return &discordgo.MessageEmbed{
+		Type:        "rich",
 		Title:       p.Title(),
 		Description: p.Description(),
 		Fields: []*discordgo.MessageEmbedField{
@@ -69,9 +63,10 @@ func cardEmbed(p api.Pokemon) *discordgo.MessageEmbed {
 				Inline: true,
 			},
 		},
-		Color:     c_RED,
+		Color:     discord.C_RED,
 		Thumbnail: &discordgo.MessageEmbedThumbnail{URL: p.Image()},
 		URL:       p.Link(),
 		Author:    getAuthorPokedex(),
+		Timestamp: time.Now().Format(time.RFC3339),
 	}
 }
