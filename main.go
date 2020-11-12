@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/HETIC-MT-P2021/chen-discord-bot/database"
 	"github.com/HETIC-MT-P2021/chen-discord-bot/discord"
 
 	"github.com/bwmarrin/discordgo"
@@ -24,6 +25,9 @@ func init() {
 }
 
 func main() {
+
+	// Create a new SQLite connexion.
+	database.Connect()
 
 	// Create a new Discord session using the provided bot token.
 	dg, err := discordgo.New("Bot " + Token)
