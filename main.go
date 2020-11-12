@@ -3,16 +3,19 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/HETIC-MT-P2021/chen-discord-bot/command"
-	"github.com/HETIC-MT-P2021/chen-discord-bot/discord"
 	"os"
 	"os/signal"
 	"syscall"
 
+	"github.com/HETIC-MT-P2021/chen-discord-bot/command"
+	"github.com/HETIC-MT-P2021/chen-discord-bot/discord"
+
+	"github.com/HETIC-MT-P2021/chen-discord-bot/database"
+
 	"github.com/bwmarrin/discordgo"
 )
 
-// Variables used for discord line parameters
+// Token : Variables used for discord line parameters
 var Token string
 
 func init() {
@@ -21,6 +24,10 @@ func init() {
 }
 
 func main() {
+
+	// Create a new SQLite connexion.
+	database.Connect()
+
 	// Create a new Discord session using the provided bot token.
 	session, err := discordgo.New("Bot " + Token)
 	if err != nil {
