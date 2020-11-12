@@ -1,6 +1,7 @@
 package discord
 
 import (
+	"database/sql"
 	"github.com/bwmarrin/discordgo"
 	"sort"
 	"strings"
@@ -12,10 +13,16 @@ type Router struct {
 	IgnorePrefixCase bool
 	BotsAllowed      bool
 	Commands         []*Command
+	Database         *sql.DB
 }
 
 func Create(router *Router) *Router {
 	return router
+}
+
+// RegisterDatabase registers a database
+func (router *Router) RegisterDatabase(db *sql.DB) {
+	router.Database = db
 }
 
 // RegisterCmd registers a new discord
@@ -86,11 +93,12 @@ func (router *Router) Handler() func(*discordgo.Session, *discordgo.MessageCreat
 			isValid, content := stringHasPrefix(content, []string{" ", "\n"}, false)
 			if content == "" || isValid {
 				command.Handler(&Context{
-					Session:       session,
-					Event:         message,
-					Arguments:     args,
-					Router:        router,
-					Command:       command,
+					Session:   session,
+					Event:     message,
+					Arguments: args,
+					Router:    router,
+					Command:   command,
+					Sql:       router.Database,
 				})
 			}
 		}

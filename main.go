@@ -26,7 +26,7 @@ func init() {
 func main() {
 
 	// Create a new SQLite connexion.
-	database.Connect()
+	db := database.Connect()
 
 	// Create a new Discord session using the provided bot token.
 	session, err := discordgo.New("Bot " + Token)
@@ -40,7 +40,7 @@ func main() {
 		Prefixes: []string{"!poke"},
 	})
 
-	// Register a simple ping discord
+	// Register all commands
 	command.InitRouter(router)
 
 	// Register the default help discord
@@ -48,6 +48,9 @@ func main() {
 
 	// Initialize the router
 	router.Initialize(session)
+
+	// Register database
+	router.RegisterDatabase(db)
 
 	// In this example, we only care about receiving message events.
 	session.Identify.Intents = discordgo.MakeIntent(discordgo.IntentsGuildMessages)
