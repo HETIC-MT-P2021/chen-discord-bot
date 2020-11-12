@@ -48,7 +48,7 @@ func stringHasPrefix(str string, prefixes []string, ignoreCase bool) (bool, stri
 			prefix = strings.ToLower(prefix)
 		}
 		if strings.HasPrefix(stringToCheck, prefix) {
-			return true, string(str[len(prefix):])
+			return true, strings.Trim(str[len(prefix):], " ")
 		}
 	}
 	return false, str

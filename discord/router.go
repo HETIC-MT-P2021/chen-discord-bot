@@ -62,9 +62,6 @@ func (router *Router) Handler() func(*discordgo.Session, *discordgo.MessageCreat
 			return
 		}
 
-		// Get rid of additional spaces
-		content = strings.Trim(content, " ")
-
 		// Check if the message is empty after the prefix processing
 		args := strings.Split(message.Content, " ")[1:]
 		if len(args) == 0 {
