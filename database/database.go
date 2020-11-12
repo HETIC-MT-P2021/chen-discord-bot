@@ -28,7 +28,7 @@ func Connect() {
 	}
 
 	// Migrate the table
-	_, err = DB.Exec("CREATE TABLE `user_pokemon` (`user_id` INTEGER, `pokemon_id` INTEGER);")
+	_, err = DB.Exec("CREATE TABLE `user_pokemon` (`user_id` VARCHAR(55), `pokemon_id` VARCHAR(55));")
 	if err != nil {
 		fmt.Println("Table already exist")
 	}
