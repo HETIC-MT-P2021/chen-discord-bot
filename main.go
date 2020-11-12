@@ -11,12 +11,11 @@ import (
 	"github.com/HETIC-MT-P2021/chen-discord-bot/discord"
 
 	"github.com/HETIC-MT-P2021/chen-discord-bot/database"
-	"github.com/HETIC-MT-P2021/chen-discord-bot/discord"
 
 	"github.com/bwmarrin/discordgo"
 )
 
-// Variables used for discord line parameters
+// Token : Variables used for discord line parameters
 var Token string
 
 func init() {
