@@ -11,4 +11,13 @@ func InitRouter(router *discord.Router) {
 		IgnoreCase:  true,
 		Handler:     CardCommandHandler(),
 	})
+
+	router.RegisterCmd(&discord.Command{
+		Name:        "list",
+		Description: "Returns the list of users and their associated Pokémon",
+		Usage:       "list",
+		Example:     "list",
+		IgnoreCase:  true,
+		Handler:     ListCommandHandler(),
+	})
 }
