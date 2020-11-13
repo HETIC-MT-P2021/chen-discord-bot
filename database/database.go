@@ -7,29 +7,26 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Sqlite driver
 )
 
-var (
-	// DB var
-	DB *sql.DB
-)
-
 // Connect connect to the database.
-func Connect() {
+func Connect() *sql.DB {
 	var err error
 
 	// Connect to database
-	DB, err := sql.Open("sqlite3", "./database/database.sqlite")
+	db, err := sql.Open("sqlite3", "./database/database.sqlite")
 	if err != nil {
 		panic(err)
 	}
 
 	// Test the database connexion
-	if err := DB.Ping(); err != nil {
+	if err := db.Ping(); err != nil {
 		panic(err)
 	}
 
 	// Migrate the table
-	_, err = DB.Exec("CREATE TABLE `user_pokemon` (`user_id` VARCHAR(55), `pokemon_id` VARCHAR(55));")
+	_, err = db.Exec("CREATE TABLE `user_pokemon` (`user_id` VARCHAR(55), `pokemon_id` VARCHAR(55));")
 	if err != nil {
 		fmt.Println("Table already exist")
 	}
+
+	return db
 }

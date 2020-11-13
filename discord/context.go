@@ -1,6 +1,9 @@
 package discord
 
-import "github.com/bwmarrin/discordgo"
+import (
+	"database/sql"
+	"github.com/bwmarrin/discordgo"
+)
 
 type Context struct {
 	Session   *discordgo.Session
@@ -8,6 +11,7 @@ type Context struct {
 	Arguments []string
 	Router    *Router
 	Command   *Command
+	Sql       *sql.DB
 }
 
 // ExecutionHandler represents a handler for a context execution
