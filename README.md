@@ -20,13 +20,13 @@ You can now access the bot in your Discord server.
 To list available commands, either run `make` with no parameters or execute `make help`:
 
 ```bash
-Usage: make <command>
+Usage: !poke <command>
 
 Commands:
-  !poke help               Provides help information on available commands
-  !poke claim              Associate a random Pokémon to the current user or replace it
-  !poke card               Return data from the Pokémon associated to the current user or a specific Pokémon with ID
-  !poke list               Returns the list of users and their associated Pokémon
+  help               Provides help information on available commands
+  claim              Associate a random Pokémon to the current user or replace it
+  card               Return data from the Pokémon associated to the current user or a specific Pokémon with ID
+  list               Returns the list of users and their associated Pokémon
 ```
 ## Author
 
