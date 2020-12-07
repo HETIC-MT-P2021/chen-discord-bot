@@ -1,6 +1,8 @@
 package pokeapi
 
 import (
+	"github.com/HETIC-MT-P2021/chen-discord-bot/pokeapi/mocks"
+	"github.com/golang/mock/gomock"
 	"testing"
 
 	"github.com/mtslzr/pokeapi-go"
@@ -23,6 +25,14 @@ func TestPokemon_ID(t *testing.T) {
 	id := "1"
 	pokemon, _ := FindPokemon(id, "fr")
 	assert.Equal(t, id, pokemon.ID())
+}
+
+func TestPokemon_ID2(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+	m := mocks.NewMockPokemonInterface(ctrl)
+
+	m.EXPECT().ID().Return()
 }
 
 func TestPokemon_Name(t *testing.T) {

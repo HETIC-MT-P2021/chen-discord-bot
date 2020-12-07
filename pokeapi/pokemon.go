@@ -8,6 +8,19 @@ import (
 	"github.com/mtslzr/pokeapi-go/structs"
 )
 
+//go:generate mockgen -destination=mocks/mock_pokeapi.go -package=mocks . PokemonInterface
+type PokemonInterface interface {
+	ID() string
+	Name() string
+	Title() string
+	Description() string
+	Category() string
+	Types() string
+	Image() string
+	Link() string
+	Stats() []PokemonInfo
+}
+
 type Pokemon struct {
 	Pokemon  structs.Pokemon
 	Species  structs.PokemonSpecies
