@@ -23,7 +23,7 @@ func Connect() *sql.DB {
 	}
 
 	// Migrate the table
-	_, err = db.Exec("CREATE TABLE `user_pokemon` (`user_id` VARCHAR(55), `pokemon_id` VARCHAR(55));")
+	_, err = db.Exec("CREATE TABLE `user_pokemon` (`user_id` VARCHAR(55) UNIQUE, `pokemon_id` VARCHAR(55));")
 	if err != nil {
 		fmt.Println("Table already exist")
 	}
